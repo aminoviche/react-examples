@@ -1,6 +1,7 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import { useEffect, useState  } from 'react';
 
 const columns: GridColDef<(typeof rows)[number]>[] = [
   { field: 'id', headerName: 'ID', width: 90 },
@@ -30,18 +31,39 @@ const columns: GridColDef<(typeof rows)[number]>[] = [
     sortable: false,
     width: 160
   },
+  {
+    field: 'image',
+    headerName: 'Image',
+    description: 'This column has a value getter and is not sortable.',
+    sortable: false,
+    width: 100,
+    renderCell: (params) => <img width={50} src={params.value} />
+  },
 ];
 export default function ProductList() {
-  const rows  = [
-    { id: 1, title: "Item 1", description: "This is item 1", price: 10.99, category: "Category A" },
-    { id: 2, title: "Item 2", description: "This is item 2", price: 20.49, category: "Category B" },
-    { id: 3, title: "Item 3", description: "This is item 3", price: 15.99, category: "Category C" },
-    { id: 4, title: "Item 4", description: "This is item 4", price: 5.99, category: "Category A" } ,
-  ];
+  const [productList, setProductList] = useState([]);
+  
+
+  useEffect(()=>{
+      fetch('https://fakestoreapi.com/products')
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        }
+        return Promise.reject('Error');
+      })
+      .then((response) => setProductList(response))
+      .catch((error) => setErrors(error));
+      console.log(productList);
+
+  }, []);
+
   return (
+    <>
+    <h1>Product List </h1>
     <Box sx={{ height: 400, width: '100%' }}>
       <DataGrid
-        rows={rows}
+        rows={productList}
         columns={columns}
         initialState={{
           pagination: {
@@ -51,10 +73,11 @@ export default function ProductList() {
           },
         }}
         pageSizeOptions={[5]}
-        checkboxSelection
+        //checkboxSelection
         disableRowSelectionOnClick
       />
     </Box>
+    </>
   );
 }
 
