@@ -1,0 +1,11 @@
+{
+    "compilerOptions": {
+      "target": "es5",   // Change from "es3" or lower to "es5"
+      "module": "esnext",
+      "strict": true,
+      "esModuleInterop": true,
+      "skipLibCheck": true,
+      "forceConsistentCasingInFileNames": true
+    }
+  }
+  
