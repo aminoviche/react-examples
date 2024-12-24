@@ -1,35 +1,20 @@
 import React from 'react';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import 'bootstrap/dist/css/bootstrap.css';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { useEffect, useState  } from 'react';
-import useFetch from '../hooks/useFetch';
 import { CustomerControllerApi} from '../services/CustomerService/apis/CustomerControllerApi';
-import { CustomerRequest } from '../services/CustomerService/models/index'; // Adjust path for the CustomerRequest model
+import { CustomerRequest } from '../services/CustomerService/models/index'; 
+import  CreateCustomerModal  from './CreateCustomerModal'; 
 
 
-
-const columns: GridColDef<(typeof rows)[number]>[] = [
-    { field: 'id', headerName: 'ID', width: 90 },
-    {
-      field: 'firstname', headerName: 'firstname', width: 150, editable: false,
-    },
-    {
-      field: 'lastname', headerName: 'lastname', width: 500, editable: false,
-    },
-    {
-      field: 'email',
-      headerName: 'email',
-      type: 'number',
-      width: 50,
-      editable: false,
-    }
-  ];
 
 export default function Customers (){
-   
      const [customersFiltred, setCustomersFiltred] = useState([]);
-    
+     const [openModal, setOpenModal] = useState(false);
+     const [fetchCustomers, setFetchCustomers] = useState(false);
+
         useEffect(() => {
             const fetchCustomers = async () => {
               try {
@@ -42,8 +27,8 @@ export default function Customers (){
             };
         
             fetchCustomers();
-
-          }, []);
+            setFetchCustomers(false);
+          }, [fetchCustomers]);
 
           // Fetch customer details by ID
         useEffect(() => {
@@ -79,6 +64,39 @@ export default function Customers (){
         return <div>No customer found</div>;
     }
 */
+
+const handleAddCustomer= async (newCustomer) => {
+
+  try {
+    console.log(newCustomer);
+    const customerRequest: CustomerRequest = newCustomer
+
+    const customerApi = new CustomerControllerApi(); // Initialize API
+    const response = await customerApi.createCustomer({
+      customerRequest,  // Pass the request body
+    });
+    setFetchCustomers(true);
+    console.log(`Customer created successfully with ID: ${response}`)
+    //setSuccess(`Customer created successfully with ID: ${response}`);
+} catch (err) {
+   // setError('Failed to create customer');
+    console.error(err);
+}
+};
+
+ // Delete customer
+ const handleDelete = async (id: number) => {
+  try {
+    const customerApi = new CustomerControllerApi();
+    await customerApi._delete({ customerId: id });
+    setCustomersFiltred((prev) => prev.filter((customer) => customer.id !== id));
+    console.log(`Customer with ID ${id} deleted successfully.`);
+  } catch (error) {
+    console.error(`Error deleting customer with ID ${id}:`, error);
+  }
+};
+
+/** 
 useEffect(() => {
     // Define an async function inside the useEffect hook
     const createCustomer = async () => {
@@ -104,15 +122,39 @@ useEffect(() => {
     // Call the function
     createCustomer();
 }, []);  // Empty dependency array means this will run once when the component mounts
+*/
+
+const columns: GridColDef<(typeof rows)[number]>[] = [
+  { field: 'id', headerName: 'ID', width: 400 },
+  {field: 'firstname', headerName: 'firstname', width: 200, editable: false,},
+  {field: 'lastname', headerName: 'lastname', width: 200, editable: false,},
+  {field: 'email', headerName: 'email', width: 200, editable: false},
+  {
+    field: "actions",
+    headerName: "Actions",
+    width: 150,
+    renderCell: (params) => (
+      <Button
+        variant="contained"
+        color="error"
+        onClick={() => handleDelete(params.row.id)}
+      >
+        Delete
+      </Button>
+    )}
+
+];
 
 
 
+return (
+  <> 
+      {/* Button to Open Modal */}
+      <Button variant="contained" onClick={() => setOpenModal(true)} style={{ marginBottom: '16px' }}>
+          Add New Customer
+        </Button>
 
-
-
-        return (
-        <>
-            <Box sx={{ height: 400, width: '100%' }}>
+    <Box sx={{ height: 400, width: '100%' }}>
       <DataGrid
         rows={customersFiltred}
         columns={columns}
@@ -128,6 +170,18 @@ useEffect(() => {
         disableRowSelectionOnClick
       />
     </Box>
-    </>
+     {/* Create Customer Modal */}
+     {openModal && (
+        <CreateCustomerModal
+          open={openModal}
+          onClose={() => setOpenModal(false)}
+          onSubmit={(newCustomer) => {
+            handleAddCustomer(newCustomer);
+            setOpenModal(false);
+          }}
+        />
+      )}
+
+  </>
         );
 }
