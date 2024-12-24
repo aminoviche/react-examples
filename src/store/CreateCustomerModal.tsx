@@ -10,17 +10,15 @@ import {
 } from "@mui/material";
 import { CustomerRequest } from "../services/CustomerService/models/index";
 
+
 interface CreateCustomerModalProps {
   open: boolean;
   onClose: () => void;
   onSubmit: (newCustomer: CustomerRequest) => void;
 }
 
-const CreateCustomerModal: React.FC<CreateCustomerModalProps> = ({
-  open,
-  onClose,
-  onSubmit,
-}) => {
+
+const CreateCustomerModal: React.FC<CreateCustomerModalProps> = ({ open, onClose, onSubmit, }) => {
   const [customer, setCustomer] = useState<CustomerRequest>({
     firstname: "",
     lastname: "",
@@ -33,13 +31,6 @@ const CreateCustomerModal: React.FC<CreateCustomerModalProps> = ({
     setCustomer((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleAddressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setCustomer((prev) => ({
-      ...prev,
-      address: { ...prev.address, [name]: value },
-    }));
-  };
 
   const handleSubmit = () => {
     onSubmit(customer);
@@ -76,33 +67,6 @@ const CreateCustomerModal: React.FC<CreateCustomerModalProps> = ({
               fullWidth
               value={customer.email}
               onChange={handleChange}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              label="Street"
-              name="street"
-              fullWidth
-              value={customer.address?.street || ""}
-              onChange={handleAddressChange}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              label="House Number"
-              name="houseNumber"
-              fullWidth
-              value={customer.address?.houseNumber || ""}
-              onChange={handleAddressChange}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              label="Postal Code"
-              name="zipCode"
-              fullWidth
-              value={customer.address?.zipCode || ""}
-              onChange={handleAddressChange}
             />
           </Grid>
         </Grid>
