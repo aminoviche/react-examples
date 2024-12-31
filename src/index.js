@@ -1,7 +1,7 @@
 import React, { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import 'bootstrap/dist/css/bootstrap.css';
-
+import './i18n'; // Import i18n configuration
 
 import App from './store/App';
 
@@ -13,4 +13,5 @@ root.render(
   <StrictMode>
     <App />
   </StrictMode>
+
 );

@@ -5,7 +5,7 @@ import Customers from './Customers';
 export default function App() {
     return (
       <div>
-        <Customers />
+        <ProductList />
       </div>
     );
 }

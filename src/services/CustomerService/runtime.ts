@@ -13,7 +13,7 @@
  */
 
 
-export const BASE_PATH = "http://localhost:8090".replace(/\/+$/, "");
+export const BASE_PATH = "http://wsss:8090".replace(/\/+$/, "");
 
 export interface ConfigurationParameters {
     basePath?: string; // override base path
