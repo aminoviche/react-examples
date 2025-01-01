@@ -3,8 +3,7 @@ import Box from '@mui/material/Box';
 import 'bootstrap/dist/css/bootstrap.css';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { useEffect, useState  } from 'react';
-import useFetch from '../hooks/useFetch';
-import { useTranslation } from 'react-i18next';
+import useFetch from '../../hooks/useFetch';
 
 const columns: GridColDef<(typeof rows)[number]>[] = [
   { field: 'id', headerName: 'ID', width: 90 },
@@ -40,11 +39,7 @@ export default function ProductList() {
   const { data :categories } = useFetch('https://fakestoreapi.com/products/categories');
   const [productListFiltred, setProductListFiltred] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState();
-  const { t, i18n } = useTranslation();
 
-  const changeLanguage = (lang) => {
-    i18n.changeLanguage(lang); // Change language dynamically
-  };
     
 
     useEffect(() => {
@@ -75,11 +70,7 @@ export default function ProductList() {
 
 
   return (
-    <>   
-     <h1>{t('welcome')}</h1>
-    <p>{t('description')}</p>
-    <button onClick={() => changeLanguage('en')}>English</button>
-    <button onClick={() => changeLanguage('fr')}>Français</button>
+    <>
     <h1>Product List </h1>
     <h1>Search Form</h1>
     <form>

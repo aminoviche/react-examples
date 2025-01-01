@@ -1,0 +1,9 @@
+{
+    "welcome": "Bienvenue",
+    "description": "Ceci est une application d'exemple avec des traductions.",
+    "nav": {
+      "home": "Accueil",
+      "customers": "Clients",
+      "products": "Produits"
+    }
+  }

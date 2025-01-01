@@ -96,6 +96,9 @@ export class CustomerControllerApi extends runtime.BaseAPI {
 
         headerParameters['Content-Type'] = 'application/json';
 
+        const a =CustomerRequestToJSON(requestParameters['customerRequest']);
+        console.log(a);
+
         const response = await this.request({
             path: `/api/v1/customers`,
             method: 'POST',

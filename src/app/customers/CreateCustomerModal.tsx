@@ -8,25 +8,22 @@ import {
   TextField,
   Grid,
 } from "@mui/material";
-import { CustomerRequest } from "../services/CustomerService/models/index";
+import { CustomerRequest } from "../../services/CustomerService/api/models/index";
 
 
 interface CreateCustomerModalProps {
   open: boolean;
   onClose: () => void;
   onSubmit: (newCustomer: CustomerRequest) => void;
+  customerToEdit: CustomerRequest
 }
 
 
-const CreateCustomerModal: React.FC<CreateCustomerModalProps> = ({ open, onClose, onSubmit, }) => {
-  const [customer, setCustomer] = useState<CustomerRequest>({
-    firstname: "",
-    lastname: "",
-    email: "",
-    address: { street: "", houseNumber: "", zipCode: "" },
-  });
+const CreateCustomerModal: React.FC<CreateCustomerModalProps> = ({ open, onClose, onSubmit, customerToEdit}) => {
+  const [customer, setCustomer] = useState<CustomerRequest>(customerToEdit);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  
+const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setCustomer((prev) => ({ ...prev, [name]: value }));
   };
@@ -47,7 +44,7 @@ const CreateCustomerModal: React.FC<CreateCustomerModalProps> = ({ open, onClose
               label="First Name"
               name="firstname"
               fullWidth
-              value={customer.firstname}
+              value={customer?.firstname}
               onChange={handleChange}
             />
           </Grid>
@@ -56,7 +53,7 @@ const CreateCustomerModal: React.FC<CreateCustomerModalProps> = ({ open, onClose
               label="Last Name"
               name="lastname"
               fullWidth
-              value={customer.lastname}
+              value={customer?.lastname}
               onChange={handleChange}
             />
           </Grid>
@@ -65,7 +62,7 @@ const CreateCustomerModal: React.FC<CreateCustomerModalProps> = ({ open, onClose
               label="Email"
               name="email"
               fullWidth
-              value={customer.email}
+              value={customer?.email}
               onChange={handleChange}
             />
           </Grid>

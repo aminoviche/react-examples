@@ -1,5 +1,5 @@
-import { CustomerControllerApi } from './apis/CustomerControllerApi';
-import { CustomerRequest } from './models/index';
+import { CustomerControllerApi, UpdateCustomerRequest } from './api/apis/CustomerControllerApi';
+import { CustomerRequest } from './api/models/index';
 
 export class CustomerService {
   private customerApi: CustomerControllerApi;
@@ -40,6 +40,18 @@ export class CustomerService {
       throw error;
     }
   }
+
+    // Create a new customer
+    async updateCustomer(updateCustomerRequest: UpdateCustomerRequest) {
+        try {
+          const response = await this.customerApi.updateCustomer(updateCustomerRequest);
+          return response; // Return the newly created customer data
+        } catch (error) {
+          console.error('Error updating customer:', error);
+          throw error;
+        }
+      }
+    
 
   // Delete a customer by ID
   async deleteCustomer(customerId: string) {
