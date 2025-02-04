@@ -4,6 +4,8 @@ import Button from '@mui/material/Button';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import CustomerService from '../../services/CustomerService/CustomerService';
 import CreateCustomerModal from './CreateCustomerModal';
+import { useContext } from 'react';
+import { AppContext } from '../../context/AppProvider';
 
 const Customers = () => {
   const [customers, setCustomers] = useState([]);
@@ -11,6 +13,8 @@ const Customers = () => {
   const [customerToEdit, setCustomerToEdit] = useState(null);
   const [loading, setLoading] = useState(false);
   const customerService = new CustomerService();
+ // const { state, setState, toggleTheme} = useContext(AppContext); 
+
 
   // Fetch all customers
   const fetchCustomers = async () => {
@@ -105,9 +109,11 @@ const Customers = () => {
     },
   ];
 
+
+  //console.log(state);
   return (
     <>
-      <Button variant="contained" onClick={() => setOpenModal(true)} style={{ marginBottom: '16px' }}>
+      <Button   className='dark' variant="contained" onClick={() => setOpenModal(true)} style={{ marginBottom: '16px' }}>
         Add New Customer
       </Button>
       <Box sx={{ height: 600, width: '100%' }}>
