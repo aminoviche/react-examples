@@ -4,6 +4,7 @@
     "nav": {
       "home": "Home",
       "customers": "Customers",
-      "products": "Products"
+      "products": "Products",
+      "logout": "logout"
     }
   }

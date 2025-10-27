@@ -1,6 +1,5 @@
 import React, { createContext, useState } from 'react';
-import { ReactKeycloakProvider } from '@react-keycloak/web';
-import keycloak from '../keycloak';
+
 
 export const AppContext = createContext();
 export const CurrentUserContext = createContext(null);
