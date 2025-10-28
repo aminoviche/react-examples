@@ -53,13 +53,13 @@ export default function ProductList() {
 
     let searchedProducts = productList;
 
-    if(selectedCategory != undefined){
+    if(selectedCategory){
       searchedProducts= searchedProducts.filter(
         (product)=> product.category.toLowerCase().includes(selectedCategory));
     }
 
 
-    if(searchValue != undefined){
+    if(searchValue){
       searchedProducts= searchedProducts.filter(
         (product)=> product.title.toLowerCase().includes(searchValue) || 
                     product.description.toLowerCase().includes(searchValue));                    
