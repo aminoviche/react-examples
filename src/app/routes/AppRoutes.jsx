@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import ProductList from './../store/ProductList';
+import ProductList from '../products/ProductList';
 import Customers from './../customers/Customers';
 import Homepage from './../homePage/HomePage';
 import NavBar from './../layout/NavBar';
