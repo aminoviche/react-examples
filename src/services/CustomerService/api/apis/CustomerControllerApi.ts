@@ -63,9 +63,9 @@ export class CustomerControllerApi extends runtime.BaseAPI {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
-
+        const customerId = requestParameters.customerId.customerId;
         const response = await this.request({
-            path: `/api/v1/customers/{customer-id}`.replace(`{${"customer-id"}}`, encodeURIComponent(String(requestParameters['customerId']))),
+            path: `/api/v1/customers/{customer-id}`.replace(`{${"customer-id"}}`, encodeURIComponent(String(customerId))),
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -228,7 +228,7 @@ export class CustomerControllerApi extends runtime.BaseAPI {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/v1/customers`,
+            path: `/api/v1/customers/`+ requestParameters.customerRequest.id,
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,

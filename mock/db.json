@@ -1,0 +1,48 @@
+{
+  "customers": [
+    {
+      "id": 1,
+      "firstname": "John",
+      "lastname": "Doe",
+      "email": "john.doe@example.com",
+      "address": {
+        "street": "Rue de la Paix",
+        "houseNumber": "12",
+        "zipCode": "75002"
+      }
+    },
+    {
+      "id": 2,
+      "firstname": "Jane",
+      "lastname": "Smith",
+      "email": "jane.smith@example.com",
+      "address": {
+        "street": "Avenue Victor Hugo",
+        "houseNumber": "88",
+        "zipCode": "75016"
+      }
+    },
+    {
+      "id": 3,
+      "firstname": "ali",
+      "lastname": "mmmm",
+      "email": "aa4444@aaa.com",
+      "address": {
+        "street": "",
+        "houseNumber": "",
+        "zipCode": ""
+      }
+    },
+    {
+      "id": 4,
+      "firstname": "te::ml",
+      "lastname": "test",
+      "email": "aa@aaa.com",
+      "address": {
+        "street": "",
+        "houseNumber": "",
+        "zipCode": ""
+      }
+    }
+  ]
+}

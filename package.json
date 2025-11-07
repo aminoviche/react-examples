@@ -5,7 +5,8 @@
   "dependencies": {
     "@emotion/react": "^11.11.0",
     "@emotion/styled": "^11.11.0",
-    "@mui/material": "^5.14.0",
+    "@mui/icons-material": "^6.1.0",
+    "@mui/material": "^6.5.0",
     "@mui/x-data-grid": "^7.6.1",
     "@popperjs/core": "2.11.8",
     "@react-keycloak/web": "^3.4.0",
@@ -28,11 +29,14 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "mock-server": "json-server --watch mock/db.json --routes mock/routes.json --port 8090",
+    "mock": "node mock/server.js"
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
-    "react-scripts": "latest"
+    "react-scripts": "latest",
+    "json-server": "0.17.3"
   },
   "browserslist": {
     "production": [

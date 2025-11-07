@@ -41,7 +41,7 @@ export class CustomerService {
     }
   }
 
-    // Create a new customer
+    // update customer
     async updateCustomer(updateCustomerRequest: UpdateCustomerRequest) {
         try {
           const response = await this.customerApi.updateCustomer(updateCustomerRequest);

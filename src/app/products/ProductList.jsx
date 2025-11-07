@@ -4,6 +4,19 @@ import 'bootstrap/dist/css/bootstrap.css';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { useEffect, useState  } from 'react';
 import useFetch from '../../hooks/useFetch';
+import { IconButton } from '@mui/material';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { GridActionsCellItem } from '@mui/x-data-grid';
+
+
+const handleEdit = (id) => {
+  console.log("Edit row", id);
+};
+
+const handleDelete = (id) => {
+  console.log("Delete row", id);
+};
 
 const columns: GridColDef<(typeof rows)[number]>[] = [
   { field: 'id', headerName: 'ID', width: 90 },
@@ -33,17 +46,42 @@ const columns: GridColDef<(typeof rows)[number]>[] = [
     width: 100,
     renderCell: (params) => <img width={50} src={params.value} />
   },
+  {
+    field: 'actions1',
+    headerName: 'Actions',
+    width: 120,
+    sortable: false,
+    renderCell: (params) => (
+        <>
+          <IconButton onClick={() => handleEdit(params.row.id)} color="primary">
+            <EditIcon />
+          </IconButton>
+          <IconButton onClick={() => handleDelete(params.row.id)} color="error">
+            <DeleteIcon />
+          </IconButton>
+        </>
+    ),
+  },
+  {
+    field: 'actions2',
+    type: 'actions',
+    headerName: 'Actions',
+    getActions: (params) => [
+      <GridActionsCellItem icon={<EditIcon />} label="Edit" onClick={() => handleEdit(params.id)} />,
+      <GridActionsCellItem icon={<DeleteIcon />} label="Delete" onClick={() => handleDelete(params.id)} />,
+    ],
+  },
 ];
 export default function ProductList() {
   const { data: productList} = useFetch('https://fakestoreapi.com/products');
   const { data :categories } = useFetch('https://fakestoreapi.com/products/categories');
-  const [productListFiltred, setProductListFiltred] = useState([]);
+  const [productListFiltered, setProductListFiltered] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState();
 
     
 
     useEffect(() => {
-      setProductListFiltred(productList);
+      setProductListFiltered(productList);
     }, [productList]);
   
 
@@ -55,18 +93,19 @@ export default function ProductList() {
 
     if(selectedCategory){
       searchedProducts= searchedProducts.filter(
-        (product)=> product.category.toLowerCase().includes(selectedCategory));
+        (product) => product.category.toLowerCase().includes(selectedCategory));
     }
 
 
     if(searchValue){
       searchedProducts= searchedProducts.filter(
-        (product)=> product.title.toLowerCase().includes(searchValue) || 
+        (product) => product.title.toLowerCase().includes(searchValue) ||
                     product.description.toLowerCase().includes(searchValue));                    
     }
 
-    setProductListFiltred(searchedProducts);
+    setProductListFiltered(searchedProducts);
   }
+
 
 
   return (
@@ -97,7 +136,7 @@ export default function ProductList() {
       </div>
     <Box sx={{ height: 400, width: '100%' }}>
       <DataGrid
-        rows={productListFiltred}
+        rows={productListFiltered}
         columns={columns}
         initialState={{
           pagination: {
